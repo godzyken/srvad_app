@@ -41,9 +41,9 @@ class _LoginPageState extends State<LoginPage> {
                   height: 150,
                   //child: Image.asset('assets/images/title.png',),
                   child: CachedNetworkImage(
-                    imageUrl: "http://suiviprod.urbalyon.org/assets/img/logo-ag.png",
+                    imageUrl:
+                        "http://suiviprod.urbalyon.org/assets/img/logo-ag.png",
                     imageBuilder: (context, imageProvider) => Container(
-
                       decoration: BoxDecoration(
                         image: DecorationImage(
                             image: imageProvider,
@@ -86,9 +86,9 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () async {
                     // var loginSuccess = await model.login();
                     // if (loginSuccess != null) {
-                      print('login with fake log');
-                      Navigator.pushNamed(context, 'home');
-                /*    } else {
+                    print('login with fake log');
+                    Navigator.pushNamed(context, 'home');
+                    /*    } else {
                       return 'Error for that field';
                     }*/
                   },

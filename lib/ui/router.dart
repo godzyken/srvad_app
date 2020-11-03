@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:srvad_app/core/constants/app_constants.dart';
+import 'package:srvad_app/ui/screen/home_page.dart';
 import 'package:srvad_app/ui/screen/login_page.dart';
 
 const String initialRoute = "/";
@@ -8,9 +9,9 @@ class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
 /*      case RoutePaths.Landing:
-        return MaterialPageRoute(builder: (_) => LandingPage());
+        return MaterialPageRoute(builder: (_) => LandingPage()); */
       case RoutePaths.Home:
-        return MaterialPageRoute(builder: (_) => MyHomePage());*/
+        return MaterialPageRoute(builder: (_) => MyHomePage());
       case RoutePaths.Login:
         return MaterialPageRoute(builder: (_) => LoginPage());
       /*case RoutePaths.SignIn:

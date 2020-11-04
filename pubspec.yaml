@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^1.0.0
   provider: ^4.3.2+2
   cached_network_image: ^2.3.3
+  dartdap: ^0.4.5
+  sso: ^0.2.0
 
 dev_dependencies:
   flutter_test:

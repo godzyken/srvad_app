@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                             image: imageProvider,
                             fit: BoxFit.cover,
                             colorFilter: ColorFilter.mode(
-                                Colors.red, BlendMode.colorBurn)),
+                                Colors.red[50], BlendMode.colorBurn)),
                       ),
                     ),
                     height: 100,
@@ -62,19 +62,15 @@ class _LoginPageState extends State<LoginPage> {
                 UIHelper.verticalSpaceSmall,
                 InputField(
                   placeholder: 'Email',
-                  onSaved: (String email) {
-                    var res = model.email;
-                    if (res != null) {
-                      print('WAzizit right now: $res');
-                      return res.toString();
-                    }
+                  onSaved: (value) {
+                    model.email = value;
                   },
                   controller: emailController,
                 ),
                 InputField(
                   placeholder: 'Password',
-                  onSaved: (String password) {
-                    model.password = password.isNotEmpty.toString();
+                  onSaved: (value) {
+                    model.password = value;
                   },
                   password: true,
                   controller: passwordController,
@@ -84,13 +80,14 @@ class _LoginPageState extends State<LoginPage> {
                   title: 'Se connecter',
                   busy: model.state,
                   onPressed: () async {
-                    // var loginSuccess = await model.login();
-                    // if (loginSuccess != null) {
-                    print('login with fake log');
-                    Navigator.pushNamed(context, 'home');
-                    /*    } else {
+                    var loginSuccess = await model.login();
+                    if (loginSuccess != null) {
+                      print('login status: $loginSuccess');
+
+                      Navigator.pushNamed(context, 'home');
+                    } else {
                       return 'Error for that field';
-                    }*/
+                    }
                   },
                 ),
               ],

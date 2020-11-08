@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:srvad_app/core/constants/app_constants.dart';
+import 'package:srvad_app/ui/screen/databaseTableTest.dart';
 import 'package:srvad_app/ui/screen/home_page.dart';
 import 'package:srvad_app/ui/screen/login_page.dart';
 
@@ -14,6 +15,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => MyHomePage());
       case RoutePaths.Login:
         return MaterialPageRoute(builder: (_) => LoginPage());
+      case RoutePaths.DataBase:
+        return MaterialPageRoute(builder: (_) => DatabaseTableTest());
       /*case RoutePaths.SignIn:
         return MaterialPageRoute(builder: (_) => SignInPage());
       case RoutePaths.Post:

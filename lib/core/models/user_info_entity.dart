@@ -26,7 +26,7 @@ class UserInfoEntity with ChangeNotifier {
         email = parsedJson['email'],
         familyName = parsedJson['family_name'],
         picture = parsedJson['picture'],
-        uid = parsedJson['uid'],
+        uid = parsedJson['id'],
         mobileNumber = parsedJson['mobile_number'],
         userRole = parsedJson['user_role'];
 
@@ -38,7 +38,7 @@ class UserInfoEntity with ChangeNotifier {
         'picture': picture,
         'mobile_number': mobileNumber,
         'user_role': userRole,
-        'uid': uid,
+        'id': uid,
       };
 
   @override

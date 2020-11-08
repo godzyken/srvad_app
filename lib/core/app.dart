@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       return MaterialApp(
         title: 'Test Flutter app',
         theme:ThemeData(primarySwatch: Colors.blue),
-        initialRoute: RoutePaths.Login,
+        initialRoute: RoutePaths.DataBase,
         onGenerateRoute: root.Router.generateRoute,
       );
     //   ),

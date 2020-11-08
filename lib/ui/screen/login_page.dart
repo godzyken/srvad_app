@@ -41,8 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 150,
                   //child: Image.asset('assets/images/title.png',),
                   child: CachedNetworkImage(
-                    imageUrl:
-                        "http://suiviprod.urbalyon.org/assets/img/logo-ag.png",
+                    imageUrl: "http://suiviprod.urbalyon.org/assets/img/logo-ag.png",
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -63,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 InputField(
                   placeholder: 'Email',
                   onSaved: (value) {
-                    model.email = value;
+                    model.username = value;
                   },
                   controller: emailController,
                 ),
@@ -80,6 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                   title: 'Se connecter',
                   busy: model.state,
                   onPressed: () async {
+                    //const url = 'http:ldap//urbalyon.org';
                     var loginSuccess = await model.login();
                     if (loginSuccess != null) {
                       print('login status: $loginSuccess');

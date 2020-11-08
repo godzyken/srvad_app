@@ -1,25 +1,78 @@
 import 'package:dartdap/dartdap.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:srvad_app/core/models/user_info_entity.dart';
 
+final LdapConnection _ldapConnection = LdapConnection();
+final url ='https://dev-dmnhg2f9.us.webtask.run/7484d51aa1644f87144ea51528a48cec?id={MY-LDAP-CONNECTOR_ID}';
+final host = "192.168.2.100";
+final port = 389;
+final username = "doreem";
+final ssl = false;
+final bindDN = "dc=urbalyon,dc=dom";
+final password = "Magico13";
 
-var connection = {
-  url :
-}
+getConnection() async {
+ await _ldapConnection.open();
 
-Future test() async {
-  var host = "192.168.2.100";
-  var ssl = false;
-  var port = 389;
-  var bindDN = "urbalyon\doreem";
-  var password = "Magico13";
+ _ldapConnection.setProtocol(ssl, port);
 
-  var connection = new LdapConnection(host: host);
-  connection.setProtocol(ssl, port);
-  connection.setAuthentication(bindDN, password);
+  var connection = await _ldapConnection.setAuthentication(bindDN, password);
+  if(connection.resultCode != null) {
+    var res = connection.resultCode;
+    print('ce qui ya dedans: $res');
+    return 'Connection succeed : $res';
+  } else {
+    var err = connection.referralURLs;
+    await _ldapConnection.close();
+    return 'Error to connect, la tentative de connection: $err';
+  }
 
 }
 
 /*
+
+² 1²A9879879J7
+  try
+  =^pè-o{
+    // Perform search operationr
+ut
+    var base = "dc=urbalyon,dc=dom";
+    var filter = Filter.present("objectClass");
+    var attrs = ["dc", "objectClass"];
+
+    var count = 0;
+
+    var searchResult = await _ldapConnection.search(base, filter, attrs);
+    await for (var entry in searchResult.stream) {
+      // Processing stream of SearchEntry
+      count++;
+      print("dn: ${entry.dn}");
+
+      // Getting all attributes returned
+
+      for (var attr in entry.attributes.values) {
+        for (var value in attr.values) { // attr.values is a Set
+          print("  ${attr.name}: $value");
+        }
+      }
+
+      // Getting a particular attribute
+
+      assert(entry.attributes["dc"].values.length == 1);
+      var dc = entry.attributes["dc"].values.first;
+      print("# dc=$dc");
+    }
+
+    print("# Number of entries: $count");
+  } catch (e) {
+    print("Exception: $e");
+  } finally {
+    // Close the connection when finished with it
+    await connection.close();
+  }
+
+
+
 (&(objectClass=user)(sAMAccountName=yourUserName)
 (memberof=CN=YourGroup,OU=Users,DC=YourDomain,DC=com))
 (&(objectClass=user)(sAMAccountName=yourUserName)

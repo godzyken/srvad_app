@@ -1,32 +1,61 @@
 import 'package:dartdap/dartdap.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:srvad_app/core/models/user_info_entity.dart';
+import 'dart:async';
 
-final LdapConnection _ldapConnection = LdapConnection();
-final url ='https://dev-dmnhg2f9.us.webtask.run/7484d51aa1644f87144ea51528a48cec?id={MY-LDAP-CONNECTOR_ID}';
-final host = "192.168.2.100";
-final port = 389;
-final username = "doreem";
-final ssl = false;
-final bindDN = "dc=urbalyon,dc=dom";
-final password = "Magico13";
 
-getConnection() async {
- await _ldapConnection.open();
 
- _ldapConnection.setProtocol(ssl, port);
+Future getConnection() async {
 
-  var connection = await _ldapConnection.setAuthentication(bindDN, password);
-  if(connection.resultCode != null) {
-    var res = connection.resultCode;
-    print('ce qui ya dedans: $res');
-    return 'Connection succeed : $res';
-  } else {
-    var err = connection.referralURLs;
-    await _ldapConnection.close();
-    return 'Error to connect, la tentative de connection: $err';
+  final host = "ldap://SRVAD01.urbalyon.dom";
+  final port = 389;
+  final ssl = false;
+  final bindDN = "dc=urbalyon,dc=dom";
+  final password = "Magico13";
+  // Create an LDAP connection object
+
+
+  var connection = LdapConnection(host: host, ssl: ssl, port: port);
+  // todo: Revamp this - get rid of nulls
+  // connection.setProtocol(ssl, port);
+  await connection.setAuthentication(bindDN, password);
+
+  try {
+    // Perform search operation
+
+    var base = "dc=urbalyon,dc=dom";
+    var filter = Filter.present("objectClass");
+    var attrs = ["dc", "objectClass"];
+
+    var count = 0;
+
+    var searchResult = await connection.search(base, filter, attrs);
+    await for (var entry in searchResult.stream) {
+      // Processing stream of SearchEntry
+      count++;
+      print("dn: ${entry.dn}");
+
+      // Getting all attributes returned
+
+      for (var attr in entry.attributes.values) {
+        for (var value in attr.values) {
+          // attr.values is a Set
+          print("  ${attr.name}: $value");
+        }
+      }
+
+      // Getting a particular attribute
+
+      assert(entry.attributes["dc"].values.length == 1);
+      var dc = entry.attributes["dc"].values.first;
+      print("# dc=$dc");
+    }
+
+    print("# Number of entries: $count");
+  } catch (e) {
+    print("Exception: $e");
+  } finally {
+    // Close the connection when finished with it
+    await connection.close();
   }
-
 }
 
 /*

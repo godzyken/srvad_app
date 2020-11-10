@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:srvad_app/core/models/user_info_entity.dart';
+import 'package:srvad_app/core/services/ldap_service.dart';
 import 'package:srvad_app/core/services/user_service.dart';
 
 
@@ -67,7 +68,14 @@ class _DatabaseTableTestState extends State<DatabaseTableTest> {
     });
   }
 
-  _getUsers() {}
+  _getUsers() {
+    _showProgress('Fetching User...');
+    UserServices.getUsers().then((result){
+      if('success' == result) {
+        print('la list doit avoir un $_giveNameController');
+      }
+    });
+  }
 
   _updateUser() {}
 
@@ -149,7 +157,7 @@ class _DatabaseTableTestState extends State<DatabaseTableTest> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _addUser();
+          getConnection();
         },
         child: Icon(Icons.add),
       ),
